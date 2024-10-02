@@ -1,3 +1,0 @@
-FOR EACH Customer NO-LOCK:
-DISPLAY Customer.NAME.
-END.

@@ -1,23 +1,28 @@
 
-                Tue Oct  1 09:53:52 2024
-[2024/10/01@09:53:52.917-0300] P-14636      T-17704 I DBUTIL   : (451)   prostrct create session begin for andre on CON:. 
-[2024/10/01@09:53:52.919-0300] P-14636      T-17704 I DBUTIL   : (12862) Structure file C:\dev\repositorios\progress\database\aulaSports.st used to create database with blocksize 4096. 
-[2024/10/01@09:53:52.921-0300] P-14636      T-17704 I DBUTIL   : (334)   prostrct create session end. 
-[2024/10/01@09:53:52.929-0300] P-14636      T-17704 I DBUTIL   : (451)   procopy session begin for andre on CON:. 
-[2024/10/01@09:53:53.011-0300] P-14636      T-17704 I DBUTIL   : (334)   procopy session end. 
+                Wed Oct  2 09:05:52 2024
+[2024/10/02@09:05:52.903-0300] P-8256       T-9616  I DBUTIL   : (451)   prostrct create session begin for andre on CON:. 
+[2024/10/02@09:05:52.905-0300] P-8256       T-9616  I DBUTIL   : (12862) Structure file C:\dev\repositorios\progress\progress\database\aulaSports.st used to create database with blocksize 4096. 
+[2024/10/02@09:05:52.908-0300] P-8256       T-9616  I DBUTIL   : (334)   prostrct create session end. 
+[2024/10/02@09:05:52.917-0300] P-8256       T-9616  I DBUTIL   : (451)   procopy session begin for andre on CON:. 
+[2024/10/02@09:05:52.997-0300] P-8256       T-9616  I DBUTIL   : (334)   procopy session end. 
 
-                Tue Oct  1 09:53:53 2024
-[2024/10/01@09:53:53.033-0300] P-14636      T-17704 I DBUTIL   : (451)   procopy get default SQL DBA session begin for andre on CON:. 
-[2024/10/01@09:53:53.034-0300] P-14636      T-17704 I DBUTIL   : (15321) Before Image Log Initialization at block 0  offset 0. 
-[2024/10/01@09:53:53.049-0300] P-14636      T-17704 I DBUTIL   : (14867) Procopy -newinstance Created a new database GUID. 
-[2024/10/01@09:53:53.084-0300] P-14636      T-17704 I DBUTIL   : (15109) At Database close the number of live transactions is 0. 
-[2024/10/01@09:53:53.085-0300] P-14636      T-17704 I DBUTIL   : (15743) Before Image Log Completion at Block 0 Offset 3684. 
-[2024/10/01@09:53:53.087-0300] P-14636      T-17704 I DBUTIL   : (334)   procopy get default SQL DBA session end. 
+                Wed Oct  2 09:05:53 2024
+[2024/10/02@09:05:53.020-0300] P-8256       T-9616  I DBUTIL   : (451)   procopy get default SQL DBA session begin for andre on CON:. 
+[2024/10/02@09:05:53.022-0300] P-8256       T-9616  I DBUTIL   : (15321) Before Image Log Initialization at block 0  offset 0. 
+[2024/10/02@09:05:53.052-0300] P-8256       T-9616  I DBUTIL   : (14867) Procopy -newinstance Created a new database GUID. 
+[2024/10/02@09:05:53.088-0300] P-8256       T-9616  I DBUTIL   : (15109) At Database close the number of live transactions is 0. 
+[2024/10/02@09:05:53.088-0300] P-8256       T-9616  I DBUTIL   : (15743) Before Image Log Completion at Block 0 Offset 3693. 
+[2024/10/02@09:05:53.090-0300] P-8256       T-9616  I DBUTIL   : (334)   procopy get default SQL DBA session end. 
 
-                Tue Oct  1 09:54:26 2024
-[2024/10/01@09:54:26.938-0300] P-868        T-17852 I ABL      : (451)   Single-user session begin for andre on CON:. 
-[2024/10/01@09:54:26.939-0300] P-868        T-17852 I ABL      : (15321) Before Image Log Initialization at block 0  offset 3684. 
-[2024/10/01@09:54:26.956-0300] P-868        T-17852 I ABL      : (7129)  Usr 0 set name to andre. 
-[2024/10/01@10:45:35.830-0300] P-868        T-17852 I ABL      : (15109) At Database close the number of live transactions is 0. 
-[2024/10/01@10:45:35.830-0300] P-868        T-17852 I ABL      : (15743) Before Image Log Completion at Block 0 Offset 3736. 
-[2024/10/01@10:45:35.831-0300] P-868        T-17852 I ABL      : (334)   Single-user session end. 
+                Wed Oct  2 09:06:24 2024
+[2024/10/02@09:06:24.396-0300] P-15108      T-18376 I ABL      : (451)   Single-user session begin for andre on CON:. 
+[2024/10/02@09:06:24.397-0300] P-15108      T-18376 I ABL      : (15321) Before Image Log Initialization at block 0  offset 3693. 
+[2024/10/02@09:06:24.417-0300] P-15108      T-18376 I ABL      : (7129)  Usr 0 set name to andre. 
+[2024/10/02@10:18:13.884-0300] P-15108      T-18376 I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2024/10/02@10:18:13.884-0300] P-15108      T-18376 I ABL      : (15743) Before Image Log Completion at Block 0 Offset 3745. 
+[2024/10/02@10:18:13.887-0300] P-15108      T-18376 I ABL      : (334)   Single-user session end. 
+
+                Wed Oct  2 10:18:33 2024
+[2024/10/02@10:18:33.287-0300] P-18744      T-7092  I ABL      : (451)   Single-user session begin for andre on CON:. 
+[2024/10/02@10:18:33.288-0300] P-18744      T-7092  I ABL      : (15321) Before Image Log Initialization at block 0  offset 3745. 
+[2024/10/02@10:18:33.294-0300] P-18744      T-7092  I ABL      : (7129)  Usr 0 set name to andre. 
