@@ -1,4 +1,69 @@
-para abrir as explicações sobre o comando
+O comando DISPLAY no Progress 4GL (também conhecido como OpenEdge ABL) é usado para exibir o valor de variáveis ou campos de um banco de dados na tela ou em outro destino de saída, como arquivos. Ele é comumente utilizado em interfaces de texto e pode ser configurado para exibir informações em um formato específico.
+
+Estrutura básica do comando DISPLAY:
+
+DISPLAY {campo/variável} [WITH opções].
+Componentes principais:
+Campos ou Variáveis:
+
+O comando DISPLAY pode exibir o valor de campos de um banco de dados, variáveis definidas no código ou literais.
+Exemplo: DISPLAY Customer.Name Customer.City. – Isso exibiria os valores dos campos Name e City da tabela Customer.
+
+Modificadores (opcionais):
+
+O DISPLAY pode ser usado com diversas opções para controlar a forma como os dados são exibidos. Aqui estão algumas das opções mais comuns:
+
+EXCEPT: Exclui certos campos da exibição quando se está exibindo um registro inteiro.
+
+Exemplo: DISPLAY Customer EXCEPT Customer.Phone. – Exibe todos os campos de Customer, exceto o campo Phone.
+
+WITH opções:
+
+WITH WIDTH n: Define a largura da tela ou janela onde os dados serão exibidos.
+WITH STREAM-IO: Usado para exibir em um formato de texto simples (como um terminal ou arquivo de texto), geralmente em saídas não gráficas.
+WITH DOWN: Exibe os valores em uma única coluna, um abaixo do outro, ao invés de lado a lado.
+WITH FRAME: Define ou usa uma moldura (frame) para a exibição dos dados, permitindo um layout mais controlado.
+
+Exemplos:
+Exibir campos de uma tabela:
+
+FOR EACH Customer:
+    DISPLAY Customer.Name Customer.Address.
+END.
+Exibe os campos Name e Address de cada registro da tabela Customer.
+Exibir todos os campos, exceto alguns:
+
+
+FOR EACH Customer:
+    DISPLAY Customer EXCEPT Customer.Phone.
+END.
+Exibe todos os campos do registro de Customer, exceto o campo Phone.
+Definir a largura da exibição:
+
+
+FOR EACH Customer:
+    DISPLAY Customer.Name Customer.City WITH WIDTH 100.
+END.
+Exibe os campos Name e City e ajusta a largura da área de exibição para 100 unidades.
+Exibir dados em formato de texto simples:
+
+
+FOR EACH Customer:
+    DISPLAY Customer.Name WITH STREAM-IO WIDTH 80.
+END.
+
+Exibe o campo Name em modo de fluxo, adequado para saídas em terminal de texto ou arquivos.
+
+Resumo do Comando DISPLAY:
+Função principal: Exibir dados em tela ou saída configurada.
+Campos ou Variáveis: Pode exibir campos de tabelas, variáveis ou literais.
+Personalização: Pode ser configurado com opções como largura, modo de exibição e exclusão de campos.
+Uso típico: Muito utilizado em loops (FOR EACH) para exibir registros do banco de dados.
+O comando DISPLAY é simples e eficiente para exibição de dados em aplicações baseadas em texto no Progress, permitindo controle flexível sobre a forma como os dados são apresentados.
+
+
+
+EXPLICAÇÕES DO COMANDO DISPLAY:
 
 abrir o e editor, digitar "DISPLAY", selecionar e apertar "f1" ou clicar com o direito em "keyboard Help" 
 e buscar por "DISPLAY" e abrir "DISPLAY statement"
