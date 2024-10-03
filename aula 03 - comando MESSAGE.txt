@@ -1,0 +1,4 @@
+para abrir as explicações sobre o comando
+
+abrir o e editor, digitar "MESSAGE", selecionar e apertar "f1" ou clicar com o direito em "keyboard Help" 
+e buscar por "MESSAGE" e abrir "MESSAGE statement"

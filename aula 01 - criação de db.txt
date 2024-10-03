@@ -18,6 +18,7 @@ estruturas de banco de dados com diferentes tamanhos de bloco:
 • empty8 (tamanho do bloco 8K)
 
 
+
 Estrutura de Arquivos do Banco:
 .db - Arquivo principal do banco de dados. Contém o esquema do banco de dados
 .lg - Arquivo de log do banco de dados. Contém informações de log em formato de texto
@@ -40,3 +41,131 @@ END.
 FOR EACH Customer NO-LOCK WHERE Customer.NAME = 'Lift tours' :
     DISPLAY Customer.Name.
 END.
+
+
+
+CRIAÇÃO DO BANCO COM PRODB
+
+
+A criação de um banco de dados no Progress 4GL (também conhecido como OpenEdge ABL) envolve alguns passos importantes, desde a definição do banco até sua inicialização e configuração. Aqui está um passo a passo detalhado:
+
+1. Preparar o ambiente de desenvolvimento
+Certifique-se de que o Progress/OpenEdge está instalado e configurado corretamente no seu sistema. O Progress possui um conjunto de ferramentas de linha de comando e interface gráfica para gerenciar bancos de dados.
+
+2. Criar o diretório do banco de dados
+Antes de criar o banco de dados, crie um diretório para armazenar os arquivos relacionados ao banco.
+
+Exemplo de comando para criar um diretório:
+
+mkdir /caminho/para/seu_banco_de_dados
+cd /caminho/para/seu_banco_de_dados
+
+3. Criar o banco de dados
+Use o utilitário prodb para criar um novo banco de dados a partir de um modelo (empty).
+
+Comando para criar o banco de dados:
+
+prodb nome_do_banco $DLC/empty
+
+Onde:
+
+nome_do_banco é o nome do seu banco de dados.
+$DLC/empty é o caminho para o banco de dados vazio que serve como modelo para novos bancos.
+
+4. Iniciar o banco de dados
+Após criar o banco, você deve inicializá-lo. Para isso, use o comando proserve.
+
+Exemplo:
+
+proserve nome_do_banco
+
+Esse comando inicia o banco de dados como um servidor. Ele permite que múltiplos usuários ou processos acessem o banco simultaneamente.
+
+5. Definir esquema de tabelas (opcional)
+Agora que o banco de dados está em execução, você pode criar as tabelas e o esquema. Isso pode ser feito por meio da ferramenta de desenvolvimento OpenEdge Architect (Eclipse) ou por linha de comando.
+
+Se você quiser definir o esquema diretamente via linha de comando, utilize o comando data dictionary no ambiente do Progress:
+
+Comando para entrar no ambiente do banco de dados:
+
+pro nome_do_banco
+
+Dentro do ambiente, acesse o menu de criação de tabelas:
+plaintext
+
+-> Database Administration
+-> Dictionary
+-> Tables -> Create Table
+
+Aqui, você pode definir colunas, tipos de dados e chaves primárias.
+
+6. Carregar dados iniciais (opcional)
+Se você tem dados prontos, pode carregá-los no banco. Use as ferramentas de importação/exportação de dados do Progress ou um programa ABL para carregar os dados.
+
+7. Parar o banco de dados
+Quando terminar de usar o banco de dados, pode encerrá-lo com o comando proshut.
+
+Comando:
+
+proshut nome_do_banco
+
+8. Acessar o banco de dados via Progress 4GL
+Após o banco estar criado e inicializado, você pode escrever programas em Progress 4GL para interagir com o banco de dados. Um exemplo básico seria:
+
+
+FOR EACH nome_da_tabela NO-LOCK:
+    DISPLAY nome_da_tabela.campo.
+END.
+
+Resumo dos comandos:
+Criar o banco de dados: prodb nome_do_banco $DLC/empty
+Iniciar o banco de dados: proserve nome_do_banco
+Definir esquema (via Data Dictionary): pro nome_do_banco
+Parar o banco de dados: proshut nome_do_banco
+Com isso, você tem um banco de dados Progress 4GL criado e pronto para uso.
+
+
+CRIAÇÃO USANDO A INTERFACE GRÁFICA "DESKTOP"
+
+1. Abrir o OpenEdge Management ou Progress Explorer
+
+Primeiro, acesse o Progress Explorer Tool ou OpenEdge Management, dependendo da versão instalada.
+Você pode acessar essas ferramentas por meio do menu Iniciar do Windows ou do atalho da área de trabalho.
+
+2. Criar um novo banco de dados
+No Progress Explorer Tool:
+No painel à esquerda, localize o item "Databases".
+Clique com o botão direito em "Databases" e selecione "New Database" (Novo Banco de Dados).
+Será aberta uma janela para que você forneça informações sobre o banco de dados:
+Escolha um nome para o banco de dados.
+Defina o diretório onde o banco será salvo.
+Selecione um template de banco de dados (geralmente "empty" para um banco de dados vazio).
+No OpenEdge Management:
+Clique na aba Resources.
+Expanda OpenEdge e clique em Databases.
+Selecione Create para iniciar o assistente de criação de banco de dados.
+
+3. Configurar o banco de dados
+Você será solicitado a fornecer algumas configurações iniciais, como:
+Localização: O diretório onde os arquivos do banco de dados serão armazenados.
+Tipo de banco de dados: Geralmente você vai selecionar o banco vazio (empty).
+Tamanho dos Extents: Se necessário, ajuste as configurações de tamanho do banco.
+
+4. Inicializar o banco de dados
+Depois de criado, você pode inicializar o banco de dados diretamente na interface gráfica:
+Localize o banco de dados recém-criado no painel do Progress Explorer ou do OpenEdge Management.
+Clique com o botão direito sobre o banco de dados e escolha a opção Start Database.
+
+5. Gerenciar o banco de dados
+Você pode gerenciar esquemas e tabelas diretamente pela interface gráfica do Data Dictionary. Para isso:
+No Progress Explorer, selecione o banco de dados e clique em Administer para abrir a ferramenta de administração.
+Na interface do Data Dictionary, crie e edite tabelas, índices e outros objetos do banco de dados.
+6. Parar o banco de dados
+Para finalizar o banco, clique com o botão direito no banco de dados e escolha Stop Database.
+
+
+
+
+
+
+
