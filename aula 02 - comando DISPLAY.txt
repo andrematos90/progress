@@ -1,0 +1,43 @@
+para abrir as explicações sobre o comando
+
+abrir o e editor, digitar "DISPLAY", selecionar e apertar "f1" ou clicar com o direito em "keyboard Help" 
+e buscar por "DISPLAY" e abrir "DISPLAY statement"
+
+
+
+EX:
+exemplo de busca e uso do comando DISPLAY:
+
+
+CURRENT-WINDOW:WIDTH = 200.
+FOR EACH Customer NO-LOCK:
+DISPLAY Customer EXCEPT Customer.Comments 
+                         Customer.Fax 
+                         Customer.EmailAddress WITH STREAM-IO WIDTH 599.
+END.
+
+
+
+Aqui está uma explicação detalhada do código, linha por linha:
+
+
+CURRENT-WINDOW:WIDTH = 200.
+Descrição: Define a largura da janela atual (current window) como 200 unidades. No Progress 4GL, a largura de uma janela pode ser ajustada através dessa propriedade. Essa linha ajusta o tamanho da janela onde os dados serão exibidos.
+Comentário: Configura a largura da janela gráfica onde os dados serão exibidos para garantir que caibam de forma adequada.
+
+FOR EACH Customer NO-LOCK:
+Descrição: Inicia um loop que percorre todos os registros da tabela Customer. O modificador NO-LOCK indica que o sistema não vai bloquear os registros ao acessá-los, permitindo múltiplas leituras simultâneas sem travamento.
+Comentário: Realiza uma iteração por todos os registros da tabela de clientes, sem bloquear os registros para leitura, garantindo performance e evitando bloqueios em outros processos que precisem acessar os mesmos dados.
+
+DISPLAY Customer EXCEPT Customer.Comments 
+                 Customer.Fax 
+                 Customer.EmailAddress WITH STREAM-IO WIDTH 599.
+
+Descrição: Exibe os campos do registro atual de Customer, exceto os campos Customer.Comments, Customer.Fax e Customer.EmailAddress. A palavra-chave EXCEPT é usada para excluir os campos mencionados. WITH STREAM-IO especifica que a exibição será feita em modo de fluxo, o que geralmente é usado para saída em texto (como terminal ou arquivo). A largura da exibição (tela ou janela) é definida como 599 unidades.
+Comentário: Exibe todos os campos do cliente, exceto comentários, fax e endereço de e-mail, em um formato de saída de texto (stream-io) com uma largura de 599 unidades.
+
+END.
+Descrição: Finaliza o bloco FOR EACH, que encerra a iteração pelos registros da tabela Customer.
+Comentário: Finaliza o loop que percorre os registros de clientes.
+Esse código essencialmente percorre todos os registros da tabela de clientes (Customer), exibindo a maioria dos campos, mas omitindo os campos de comentários, fax e endereço de e-mail, com a exibição formatada em uma largura específica.
+
