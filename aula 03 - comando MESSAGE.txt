@@ -1,4 +1,82 @@
-para abrir as explicações sobre o comando
+O comando MESSAGE no Progress 4GL (OpenEdge ABL) é usado para exibir mensagens ou informações ao usuário. Ele é útil para fornecer feedback, mostrar resultados, valores de variáveis ou dados de campos de um banco de dados, e também para debug e depuração.
+
+Estrutura básica do comando MESSAGE:
+
+MESSAGE {valores/variáveis/campos} [VIEW-AS opções] [UPDATE variável] [SET variável] [LEVEL nível].
+
+Componentes principais:
+Valores, Variáveis ou Campos:
+
+O comando MESSAGE pode exibir texto literal, valores de variáveis ou o conteúdo de campos do banco de dados.
+
+Exemplo: MESSAGE "Hello, World!". – Exibe a mensagem "Hello, World!" na tela.
+
+VIEW-AS (opcional):
+Permite personalizar a maneira como a mensagem é exibida.
+
+Exemplo: VIEW-AS ALERT-BOX faz com que a mensagem seja exibida em uma caixa de alerta (popup) ao invés de uma saída normal no console.
+
+UPDATE (opcional):
+Permite que o usuário atualize o valor de uma variável diretamente na janela de mensagem.
+Exemplo: MESSAGE "Enter your name: " UPDATE cName. – Exibe uma mensagem solicitando ao usuário que insira seu nome e armazena o valor digitado na variável cName.
+
+SET (opcional):
+Funciona de forma semelhante ao UPDATE, mas em vez de uma caixa de mensagem, o valor é atribuído diretamente a uma variável.
+Exemplo: MESSAGE "Enter a value: " SET iValue. – Atribui o valor digitado pelo usuário à variável iValue.
+
+LEVEL (opcional):
+Controla a importância ou severidade da mensagem. Pode ser ERROR, WARNING, etc., e pode ser utilizado em caixas de alerta.
+Exemplo: MESSAGE "Invalid input!" VIEW-AS ALERT-BOX ERROR. – Exibe uma caixa de alerta de erro com a mensagem "Invalid input!".
+
+Exemplos:
+Exibir uma mensagem simples:
+
+MESSAGE "Process complete!".
+Exibe a mensagem "Process complete!" no terminal ou console.
+
+Exibir variáveis e literais:
+DEFINE VARIABLE iAge AS INTEGER NO-UNDO.
+iAge = 34.
+MESSAGE "Your age is: " iAge.
+Exibe a mensagem concatenada com o valor da variável iAge, por exemplo: "Your age is: 34".
+
+Exibir uma mensagem em uma caixa de alerta (alert box):
+MESSAGE "Data saved successfully!" VIEW-AS ALERT-BOX INFO BUTTONS OK.
+Exibe uma caixa de alerta com a mensagem "Data saved successfully!" e um botão "OK".
+
+Solicitar uma entrada de dados com UPDATE:
+DEFINE VARIABLE cName AS CHARACTER NO-UNDO.
+MESSAGE "Enter your name: " UPDATE cName.
+Exibe a mensagem solicitando ao usuário que insira o nome, que será armazenado na variável cName.
+
+Mensagem com nível de erro:
+MESSAGE "Error: File not found!" VIEW-AS ALERT-BOX ERROR.
+Exibe uma caixa de alerta com a mensagem de erro "Error: File not found!".
+
+Resumo do Comando MESSAGE:
+Função principal: Exibir mensagens ou informações ao usuário.
+Campos ou Variáveis: Pode exibir literais, variáveis ou campos de um banco de dados.
+Modificadores: Pode ser usado com opções como VIEW-AS para exibir a mensagem em uma caixa de diálogo ou alterar o estilo da mensagem.
+Interatividade: O UPDATE permite que o usuário insira ou modifique valores diretamente na mensagem.
+Uso típico: Usado para fornecer feedback, exibir informações de depuração ou alertas, e solicitar dados ao usuário.
+O comando MESSAGE é versátil e pode ser utilizado tanto para exibir mensagens simples quanto para criar interações mais complexas, como solicitar entradas e exibir caixas de alerta com diferentes níveis de severidade.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXPLICAÇÕES COMANDO MESSAGE
 
 abrir o e editor, digitar "MESSAGE", selecionar e apertar "f1" ou clicar com o direito em "keyboard Help" 
 e buscar por "MESSAGE" e abrir "MESSAGE statement"
