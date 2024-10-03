@@ -26,3 +26,6 @@
 [2024/10/02@10:18:33.287-0300] P-18744      T-7092  I ABL      : (451)   Single-user session begin for andre on CON:. 
 [2024/10/02@10:18:33.288-0300] P-18744      T-7092  I ABL      : (15321) Before Image Log Initialization at block 0  offset 3745. 
 [2024/10/02@10:18:33.294-0300] P-18744      T-7092  I ABL      : (7129)  Usr 0 set name to andre. 
+[2024/10/02@15:31:22.913-0300] P-18744      T-7092  I ABL      : (15109) At Database close the number of live transactions is 0. 
+[2024/10/02@15:31:22.914-0300] P-18744      T-7092  I ABL      : (15743) Before Image Log Completion at Block 0 Offset 3797. 
+[2024/10/02@15:31:22.916-0300] P-18744      T-7092  I ABL      : (334)   Single-user session end. 
