@@ -1,0 +1,92 @@
+documentação: https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424920636568.html
+
+
+Os operadores lógicos no Progress 4GL  são usados para combinar expressões booleanas e controlar o fluxo de decisões em instruções condicionais e loops. Aqui estão os operadores lógicos mais comuns no Progress 4GL:
+
+
+1. AND (E lógico)
+O operador AND retorna TRUE se ambas as condições forem verdadeiras.
+
+Sintaxe:
+
+condição1 AND condição2
+
+Exemplo:
+IF idade >= 18 AND país = "Brasil" THEN
+    DISPLAY "Acesso permitido".
+ELSE
+    DISPLAY "Acesso negado".
+
+Aqui, o acesso só será permitido se a idade for maior ou igual a 18 e o país for "Brasil".
+
+
+
+2. OR (OU lógico)
+O operador OR retorna TRUE se qualquer uma das condições for verdadeira.
+
+Sintaxe:
+
+condição1 OR condição2
+Exemplo:
+
+IF idade >= 18 OR país = "Brasil" THEN
+    DISPLAY "Condição atendida".
+ELSE
+    DISPLAY "Condição não atendida".
+
+
+Neste caso, a condição é atendida se a idade for maior ou igual a 18 ou o país for "Brasil".
+
+
+
+3. NOT (NEGAÇÃO lógica)
+O operador NOT inverte o valor lógico de uma condição, retornando TRUE se a condição for FALSE, e vice-versa.
+
+Sintaxe:
+NOT condição
+
+Exemplo:
+
+IF NOT país = "Brasil" THEN
+    DISPLAY "Usuário de outro país".
+
+Neste exemplo, a mensagem será exibida se o país não for "Brasil".
+
+4. XOR (OU exclusivo lógico)
+O operador XOR (OU exclusivo) retorna TRUE se apenas uma das condições for verdadeira. Se ambas forem verdadeiras ou ambas forem falsas, retorna FALSE.
+
+Sintaxe:
+condição1 XOR condição2
+
+Exemplo:
+
+IF condição1 XOR condição2 THEN
+    DISPLAY "Uma condição é verdadeira".
+
+A mensagem será exibida se apenas uma das condições for verdadeira.
+
+
+
+Precedência dos Operadores
+A ordem de precedência dos operadores lógicos no Progress 4GL, do mais alto para o mais baixo, é:
+
+NOT
+AND
+OR
+
+Se você precisar alterar a ordem de avaliação, pode usar parênteses para agrupar expressões.
+
+Exemplo com precedência:
+
+IF NOT (idade >= 18 AND país = "Brasil") THEN
+    DISPLAY "Condição não atendida".
+
+Aqui, a condição dentro dos parênteses será avaliada primeiro.
+
+
+Resumo dos Operadores Lógicos:
+AND: Retorna TRUE se ambas as condições forem verdadeiras.
+OR: Retorna TRUE se qualquer uma das condições for verdadeira.
+NOT: Inverte o valor de uma condição.
+XOR: Retorna TRUE se apenas uma das condições for verdadeira.
+Esses operadores são usados para controlar o fluxo lógico de um programa e são essenciais para trabalhar com expressões condicionais no Progress 4GL.
