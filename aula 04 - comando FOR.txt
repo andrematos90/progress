@@ -1,0 +1,63 @@
+links uteis:
+
+https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424919813003.html
+https://community.progress.com/s/article/000012195
+https://riptutorial.com/progress-4gl
+
+
+USO DO COMANDO FOR EM PROGRESS 4GL
+
+O comando FOR no Progress 4GL (também chamado de OpenEdge ABL) é utilizado para iterar sobre registros em uma tabela de banco de dados ou para realizar repetições em loops de contagem (similares ao FOR em outras linguagens).
+
+Aqui estão dois usos principais do FOR no Progress 4GL:
+
+1. Iteração sobre registros de uma tabela
+O FOR EACH é o comando utilizado para percorrer os registros de uma tabela de banco de dados.
+
+
+Sintaxe:
+
+FOR EACH nome-da-tabela [WHERE condição] [BY campo]:
+    /* bloco de código */
+END.
+
+nome-da-tabela: Nome da tabela do banco de dados que você deseja iterar.
+[WHERE condição]: Condição opcional para filtrar os registros.
+[BY campo]: Ordem de classificação opcional dos registros.
+
+Exemplo:
+
+FOR EACH Cliente WHERE Cliente.País = "Brasil" BY Cliente.Nome:
+    DISPLAY Cliente.Nome Cliente.Cidade.
+END.
+
+Neste exemplo, o loop percorre todos os registros da tabela Cliente onde o campo País é igual a "Brasil" e os exibe ordenados pelo nome do cliente.
+
+2. Loop de contagem
+O FOR também pode ser usado para criar um loop controlado por um contador.
+
+Sintaxe:
+
+FOR variável = valor-inicial TO valor-final [BY incremento]:
+    /* bloco de código */
+END.
+
+variável: A variável de controle do loop.
+valor-inicial: O valor inicial do contador.
+valor-final: O valor final do contador.
+[BY incremento]: O valor opcional de incremento (por padrão é 1).
+
+Exemplo:
+
+DEFINE VARIABLE i AS INTEGER NO-UNDO.
+
+FOR i = 1 TO 10:
+    DISPLAY i.
+END.
+
+Esse loop exibe os números de 1 a 10.
+
+Resumo
+FOR EACH: Itera sobre os registros de uma tabela de banco de dados, com opções de filtragem e ordenação.
+FOR (com contagem): Cria um loop baseado em um contador com valores inicial, final e opcionalmente, incremento.
+Ambos os tipos de FOR são essenciais no Progress 4GL para manipulação de dados e execução de laços controlados.
