@@ -1,0 +1,97 @@
+a declaração de variáveis é um processo essencial para armazenar e manipular dados dentro de um programa. Para declarar variáveis, você utiliza a instrução DEFINE VARIABLE, seguida do nome da variável, seu tipo de dado, e opcionalmente o modificador NO-UNDO para controlar a persistência de alterações na variável durante o processamento de transações.
+
+Estrutura Básica da Declaração
+A sintaxe básica para declarar uma variável em Progress 4GL é:
+
+DEFINE VARIABLE <nome-da-variável> AS <tipo-de-dado> [NO-UNDO].
+
+Componentes da Declaração:
+DEFINE VARIABLE: Comando utilizado para declarar uma nova variável.
+Nome da Variável: O nome que você atribui à variável, que deve seguir as convenções de nomeação (não pode começar com números, nem conter espaços ou caracteres especiais).
+Tipo de Dado: O tipo de valor que a variável armazenará, como INTEGER, CHARACTER, DECIMAL, DATE, etc.
+NO-UNDO (Opcional): Usado para evitar o armazenamento de informações de "antes da alteração" (undo) durante uma transação, economizando memória e melhorando o desempenho, especialmente em loops ou programas que manipulam grandes volumes de dados.
+
+
+
+Exemplos de Declaração de Variáveis
+
+Declarando um número inteiro (INTEGER):
+DEFINE VARIABLE idade AS INTEGER NO-UNDO.
+
+Nesse exemplo, a variável idade foi declarada como um número inteiro, que pode armazenar valores como 25, 100, etc. O modificador NO-UNDO significa que o valor da variável não será restaurado automaticamente caso haja um erro de transação.
+
+
+Declarando uma cadeia de caracteres (CHARACTER):
+DEFINE VARIABLE nome AS CHARACTER NO-UNDO.
+
+A variável nome armazena uma sequência de texto, como "André" ou "Super Tech".
+
+
+Declarando um número decimal (DECIMAL):
+DEFINE VARIABLE preco AS DECIMAL NO-UNDO.
+
+A variável preco pode armazenar números com casas decimais, como 99.99 ou 1234.56, útil para cálculos financeiros.
+
+
+Declarando uma data (DATE):
+DEFINE VARIABLE data-nascimento AS DATE NO-UNDO.
+
+Neste caso, data-nascimento armazenará uma data, como 07-10-2024.
+
+
+Declarando Múltiplas Variáveis de uma Só Vez
+Você pode declarar várias variáveis em uma única instrução DEFINE VARIABLE, especificando os tipos de dados para cada uma delas. Por exemplo:
+
+
+DEFINE VARIABLE idade AS INTEGER NO-UNDO
+       nome AS CHARACTER NO-UNDO
+       salario AS DECIMAL NO-UNDO.
+
+Aqui, idade, nome e salario são declarados como variáveis de tipos diferentes, tudo em um único comando.
+
+
+
+Variáveis de Array (Vetores)
+Você pode declarar variáveis como arrays (ou vetores), que podem armazenar múltiplos valores do mesmo tipo. A sintaxe para declarar arrays inclui o tamanho do array entre colchetes [].
+
+Exemplo de um array de 5 inteiros:
+DEFINE VARIABLE notas AS INTEGER EXTENT 5 NO-UNDO.
+
+Neste caso, notas pode armazenar até 5 valores inteiros, como [90, 85, 78, 92, 88].
+
+
+Variáveis Temporárias e Scope
+Em Progress, variáveis podem ser definidas como temporárias para uso dentro de um bloco de código, como dentro de um procedimento ou função. O NO-UNDO também ajuda a definir o escopo da variável, evitando que ela persista alterações fora do bloco onde foi declarada.
+
+DEFINE VARIABLE total AS DECIMAL NO-UNDO.
+
+Essa variável será usada apenas enquanto o bloco de código (como um procedimento ou função) estiver sendo executado.
+
+
+
+Atribuição de Valores
+Após declarar uma variável, você pode atribuir um valor a ela usando o operador de atribuição (=):
+
+DEFINE VARIABLE idade AS INTEGER NO-UNDO.
+idade = 34.
+
+Ou, para uma variável de texto:
+
+DEFINE VARIABLE nome AS CHARACTER NO-UNDO.
+nome = "André".
+
+Considerações sobre NO-UNDO
+O modificador NO-UNDO é frequentemente utilizado para otimizar o desempenho, principalmente em aplicações que manipulam um grande volume de dados ou que realizam transações complexas. Sem o NO-UNDO, o Progress 4GL cria automaticamente uma cópia da variável antes de alterá-la, o que permite desfazer a alteração em caso de erro. Em variáveis temporárias ou que não precisam desse comportamento, o uso de NO-UNDO pode economizar memória e processamento.
+
+Conclusão
+A declaração de variáveis em Progress 4GL é flexível e direta, com suporte para diferentes tipos de dados e modificadores como NO-UNDO para controlar o escopo e o comportamento de transações. Definir corretamente as variáveis é essencial para garantir que seus programas funcionem de maneira eficiente e confiável.
+
+
+
+
+
+
+
+
+
+
