@@ -47,6 +47,7 @@ NOT condição
 
 Exemplo:
 
+
 IF NOT país = "Brasil" THEN
     DISPLAY "Usuário de outro país".
 
@@ -82,6 +83,7 @@ IF NOT (idade >= 18 AND país = "Brasil") THEN
     DISPLAY "Condição não atendida".
 
 Aqui, a condição dentro dos parênteses será avaliada primeiro.
+
 
 
 Resumo dos Operadores Lógicos:
