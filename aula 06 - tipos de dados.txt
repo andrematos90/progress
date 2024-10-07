@@ -1,0 +1,93 @@
+LINKS UTEIS:
+https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424920636568.html
+
+Tipos de Dados Numéricos:
+
+INTEGER:
+Representa números inteiros sem casas decimais.
+Exemplo: 10, -3
+
+INT64:
+Um inteiro de 64 bits, capaz de armazenar valores muito grandes ou pequenos que ultrapassam a capacidade de um INTEGER tradicional.
+
+DECIMAL:
+Para números com casas decimais de alta precisão. Muito usado em cálculos financeiros.
+Exemplo: 123.45, -987.654
+
+FLOAT:
+Um tipo de dado para números em ponto flutuante. Usa menos memória que DECIMAL, mas pode apresentar imprecisões em cálculos complexos.
+Exemplo: 3.14, -2.71
+
+
+
+
+
+Tipos de Dados de Texto:
+
+CHARACTER:
+Armazena cadeias de caracteres (strings) de comprimento variável.
+Exemplo: "Hello, World!", "ABC123"
+
+STRING:
+Um tipo especial de dado utilizado para trabalhar com cadeias de caracteres longas. Na prática, é bastante similar ao CHARACTER, mas otimizado para grandes volumes de texto.
+
+
+
+
+Tipos de Dados Lógicos:
+
+LOGICAL:
+Tipo booleano que armazena os valores TRUE (verdadeiro) ou FALSE (falso).
+Exemplo: TRUE, FALSE
+
+
+
+Tipos de Dados Temporais:
+
+DATE:
+Armazena datas no formato dd-mm-yyyy.
+Exemplo: 07-10-2024
+
+DATETIME:
+Armazena tanto a data quanto o horário em um único valor.
+Exemplo: 07-10-2024 14:30:00
+
+DATETIME-TZ:
+Similar ao DATETIME, mas inclui informações de fuso horário (timezone).
+Exemplo: 07-10-2024 14:30:00-03:00
+
+
+
+Tipos de Dados Binários:
+
+BLOB (Binary Large Object):
+Armazena grandes quantidades de dados binários, como imagens, vídeos ou arquivos.
+
+RAW:
+Usado para armazenar cadeias de dados binários de tamanho fixo.
+
+
+
+
+Outros Tipos de Dados:
+
+RECID:
+Um identificador interno para registros dentro de uma tabela no banco de dados Progress. Usado para acessar registros diretamente.
+
+ROWID:
+Outro identificador de registro, mas ao contrário de RECID, ele não é alterado mesmo se o registro for movido no banco de dados.
+
+HANDLE:
+Usado para manipular referências a objetos em tempo de execução, como janelas ou consultas (queries).
+
+COM-HANDLE:
+Um tipo específico de HANDLE usado para trabalhar com objetos COM (Component Object Model) no Windows.
+
+
+
+Considerações:
+Em Progress 4GL, a definição de tipos de dados geralmente é muito flexível, e você pode declarar variáveis com base nesses tipos para manipular os dados de forma eficiente em diferentes contextos de uma aplicação.
+
+Além disso, Progress 4GL tem suporte para arrays e buffers para armazenar múltiplos valores ou registros, respectivamente.
+
+Esses são os principais tipos de dados no Progress 4GL, usados para armazenar diferentes tipos de informações de acordo com as necessidades do desenvolvedor ou da aplicação.
