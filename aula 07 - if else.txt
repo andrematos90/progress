@@ -1,0 +1,97 @@
+LINK ÚTIL:  
+https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424920642382.html
+
+
+Em Progress 4GL, a estrutura de controle IF...THEN...ELSE permite tomar decisões e executar blocos de código diferentes com base em condições. Essa estrutura é muito semelhante a outras linguagens de programação, onde uma condição é avaliada e, dependendo de seu resultado (verdadeira ou falsa), um determinado bloco de código é executado.
+
+
+
+Sintaxe Básica do IF...THEN...ELSE
+
+IF <condição> THEN
+    <bloco de código verdadeiro>
+ELSE
+    <bloco de código falso>.
+
+<condição>: Uma expressão lógica que resulta em TRUE (verdadeiro) ou FALSE (falso). Pode ser qualquer comparação, operação ou função que retorne um valor booleano.
+<bloco de código verdadeiro>: O código que será executado se a condição for verdadeira.
+<bloco de código falso>: O código que será executado se a condição for falsa. O bloco ELSE é opcional.
+
+Exemplo Simples
+
+DEFINE VARIABLE idade AS INTEGER NO-UNDO.
+
+idade = 20.
+
+IF idade >= 18 THEN
+    DISPLAY "Maior de idade".
+ELSE
+    DISPLAY "Menor de idade".
+
+Neste exemplo:
+
+Se a variável idade for maior ou igual a 18, a mensagem "Maior de idade" será exibida.
+Caso contrário, a mensagem "Menor de idade" será exibida.
+
+
+
+Exemplo com Múltiplas Condições (Aninhado)
+Você pode aninhar várias instruções IF...THEN...ELSE para lidar com várias condições:
+
+DEFINE VARIABLE nota AS INTEGER NO-UNDO.
+
+nota = 85.
+
+IF nota >= 90 THEN
+    DISPLAY "Excelente".
+ELSE IF nota >= 75 THEN
+    DISPLAY "Bom".
+ELSE
+    DISPLAY "Precisa melhorar".
+
+Neste exemplo:
+
+Se a nota for maior ou igual a 90, será exibido "Excelente".
+Se a nota for menor que 90, mas maior ou igual a 75, será exibido "Bom".
+Caso contrário, será exibido "Precisa melhorar".
+
+
+
+Exemplo com Vários Comandos no Bloco
+Se precisar executar mais de uma linha de código dentro de um bloco IF ou ELSE, você deve usar DO...END para agrupar os comandos:
+
+
+IF idade >= 18 THEN DO:
+    DISPLAY "Você pode dirigir".
+    DISPLAY "Você pode votar".
+END.
+ELSE DO:
+    DISPLAY "Você ainda não pode dirigir".
+    DISPLAY "Você ainda não pode votar".
+END.
+
+DO...END define o início e o fim de um bloco de código que contém várias instruções dentro de uma estrutura de controle.
+
+
+Condições Simples e Complexas
+As condições no IF podem ser simples ou complexas. Você pode usar operadores de comparação (=, >, <, >=, <=, <>) e operadores lógicos (AND, OR, NOT) para criar condições mais complexas.
+
+Exemplo de condição simples:
+
+IF idade >= 18 THEN
+    DISPLAY "Maior de idade".
+
+Exemplo de condição complexa:
+
+DEFINE VARIABLE salario AS DECIMAL NO-UNDO.
+DEFINE VARIABLE idade AS INTEGER NO-UNDO.
+
+IF (salario > 3000 AND idade < 30) OR (salario > 5000) THEN
+    DISPLAY "Elegível para empréstimo".
+ELSE
+    DISPLAY "Não elegível para empréstimo".
+
+Observações Importantes:
+O bloco ELSE é opcional. Você pode usar apenas o IF...THEN se não for necessário um caminho alternativo.
+A estrutura IF...THEN...ELSE é usada para decidir quais instruções executar, com base nas condições fornecidas. Ela é essencial para controlar o fluxo do programa em diferentes cenários.
+Com essas estruturas de controle, o Progress 4GL permite criar lógicas de decisão flexíveis, controlando o fluxo do programa de forma eficiente.
