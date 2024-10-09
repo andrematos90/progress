@@ -1,0 +1,357 @@
+Para criar um backend em Progress 4GL (OpenEdge ABL), é importante seguir boas práticas de modularização e organização do código. Assim como em outras linguagens, você pode optar por diferentes abordagens para estruturar as operações CRUD (Create, Read, Update, Delete). A estruturação ideal depende do tamanho e da complexidade do projeto, mas há algumas convenções e práticas recomendadas que podem ser seguidas.
+
+Opções de Estruturação de CRUD em Progress 4GL
+Você pode organizar as operações de CRUD de duas formas principais:
+
+Procedures separadas por operação:
+
+Cada operação (Create, Read, Update, Delete) é implementada em uma procedure separada.
+Cada procedure pode ser armazenada em um arquivo distinto para promover uma separação clara de responsabilidades.
+
+Procedures agrupadas em um arquivo só:
+
+Todas as operações CRUD para uma entidade (ou tabela) podem ser agrupadas em um único arquivo. Neste caso, todas as funções relacionadas a uma entidade específica são mantidas juntas, facilitando a visualização de toda a lógica daquela entidade.
+
+
+
+
+Convenção e Boas Práticas Utilizadas
+
+1. Separação por Camadas (Camada de Negócio e Acesso a Dados)
+Uma abordagem comum em arquiteturas de backends modernos é dividir o código em camadas:
+
+Camada de Acesso a Dados (Data Access Layer - DAL): Essa camada é responsável pelas interações diretas com o banco de dados, ou seja, onde as operações de CRUD acontecem.
+Camada de Negócio (Business Logic Layer - BLL): Aqui, as regras de negócio são aplicadas. Essa camada utiliza a camada de acesso a dados, mas não interage diretamente com o banco.
+Camada de Apresentação ou API (Presentation Layer): Aqui você define como os dados serão expostos (via API, por exemplo) ou como as interfaces interagem com o backend.
+Esse padrão de camadas facilita a manutenção, testabilidade e escalabilidade da aplicação.
+
+2. Procedures Agrupadas por Entidade
+Uma convenção comum é agrupar as procedures CRUD de cada entidade em um único arquivo, mas com diferentes procedures para cada operação. Por exemplo, para uma entidade Cliente, você teria um arquivo cliente.p contendo as seguintes procedures:
+
+progress
+Copiar código
+PROCEDURE createCliente:
+    /* Código para criar um cliente */
+END.
+
+PROCEDURE readCliente:
+    /* Código para ler um cliente */
+END.
+
+PROCEDURE updateCliente:
+    /* Código para atualizar um cliente */
+END.
+
+PROCEDURE deleteCliente:
+    /* Código para deletar um cliente */
+END.
+Dessa forma, todas as operações relacionadas à entidade Cliente ficam no mesmo arquivo, promovendo uma melhor organização e facilitando a manutenção.
+
+
+3. Separação de Procedures por Função (Por Operação CRUD)
+Outra abordagem possível é criar arquivos separados para cada operação CRUD. Isso é útil em grandes sistemas ou quando as operações são muito complexas. Por exemplo:
+
+cliente_create.p: Contém a lógica de criação de cliente.
+cliente_read.p: Contém a lógica para leitura de cliente.
+cliente_update.p: Contém a lógica para atualização de cliente.
+cliente_delete.p: Contém a lógica para deletar cliente.
+
+Essa abordagem favorece ainda mais a modularidade e facilita a manutenção de partes específicas do sistema, já que cada arquivo se concentra em uma única responsabilidade.
+
+
+
+Estruturação Correta de uma Aplicação Backend em Progress 4GL
+1. Estrutura de Diretórios Sugerida
+Para organizar adequadamente uma aplicação backend, a seguinte estrutura de diretórios pode ser utilizada:
+
+bash
+Copiar código
+/backend
+    /src
+        /business (ou /bll)  -> Camada de negócios
+            cliente_negocio.p
+            produto_negocio.p
+        /data (ou /dal)  -> Camada de acesso a dados
+            cliente.p
+            produto.p
+        /api  -> Exposição da API (se houver)
+            cliente_api.p
+            produto_api.p
+    /test  -> Testes
+        cliente_test.p
+        produto_test.p
+    /config  -> Configurações (se necessário)
+        database-config.p
+Essa estrutura facilita o desenvolvimento em grandes equipes e torna o código mais claro.
+
+
+2. Exemplo de Procedures para Operações CRUD
+Aqui está um exemplo de como organizar um CRUD simples em Progress 4GL para a entidade Cliente:
+
+Camada de Acesso a Dados (DAL) (src/data/cliente.p)
+progress
+Copiar código
+/* Procedure para Criar Cliente */
+PROCEDURE createCliente:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    CREATE cliente.
+    ASSIGN
+        cliente.nome = nome
+        cliente.idade = idade.
+    /* Salva no banco de dados */
+    SAVE TRANSACTION.
+END.
+
+/* Procedure para Ler Cliente */
+PROCEDURE readCliente:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE OUTPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE OUTPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    FIND cliente WHERE cliente.id = id NO-ERROR.
+    IF AVAILABLE cliente THEN DO:
+        nome = cliente.nome.
+        idade = cliente.idade.
+    END.
+END.
+Camada de Negócio (BLL) (src/business/cliente_negocio.p)
+Aqui você adicionaria validações, cálculos ou outras lógicas de negócio:
+
+progress
+Copiar código
+PROCEDURE criarClienteComValidacao:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    IF nome = "" THEN RETURN ERROR "Nome não pode ser vazio.".
+    IF idade < 18 THEN RETURN ERROR "Idade mínima é 18 anos.".
+
+    /* Chama a camada de acesso a dados */
+    RUN createCliente (INPUT nome, INPUT idade).
+END.
+Camada de API (Exposição da Lógica) (src/api/cliente_api.p)
+Essa camada serve para expor os dados de forma que possam ser acessados por um front-end ou outra aplicação. Se fosse uma API REST, você poderia criar uma lógica que respondesse às chamadas HTTP.
+
+progress
+Copiar código
+PROCEDURE createClienteAPI:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+    
+    /* Chama a lógica de negócio */
+    RUN criarClienteComValidacao(INPUT nome, INPUT idade).
+
+    /* Retorna sucesso ou erro */
+    RETURN "Cliente criado com sucesso!".
+END.
+
+Conclusão
+Modularize o CRUD por entidade: Coloque as operações de CRUD relacionadas a uma entidade (como cliente, produto) juntas, seja em um único arquivo ou separadas por operações.
+Use separação por camadas: Separe a lógica de negócio da lógica de acesso a dados e da interface com o usuário ou API, facilitando a manutenção e escalabilidade.
+Siga boas práticas de organização: Uma estrutura de diretórios bem planejada ajuda a manter o código organizado e fácil de entender, especialmente em projetos maiores.
+Essa abordagem modular e baseada em camadas é uma das convenções mais utilizadas e eficientes para o desenvolvimento de um backend em Progress 4GL.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vamos criar um exemplo completo de um CRUD para uma entidade chamada Cliente em Progress 4GL (OpenEdge ABL), seguindo as boas práticas de modularização que mencionei anteriormente. A estrutura do código será organizada em camadas, com arquivos separados para as operações de Create, Read, Update e Delete, bem como uma camada de negócio para regras e validações.
+
+Estrutura de Diretórios
+Aqui está uma estrutura de diretórios simples para o nosso CRUD:
+
+rust
+Copiar código
+/backend
+    /src
+        /business
+            cliente_negocio.p   -> Camada de negócios
+        /data
+            cliente_create.p    -> Criar Cliente
+            cliente_read.p      -> Ler Cliente
+            cliente_update.p    -> Atualizar Cliente
+            cliente_delete.p    -> Deletar Cliente
+        /api
+            cliente_api.p       -> Exposição da API (CRUD)
+1. Camada de Acesso a Dados (DAL)
+Aqui, teremos os arquivos responsáveis pelas operações diretamente no banco de dados, como criação, leitura, atualização e exclusão de clientes.
+
+1.1 cliente_create.p
+progress
+Copiar código
+/* Arquivo: /src/data/cliente_create.p */
+PROCEDURE createCliente:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Cria um novo registro na tabela 'cliente' */
+    CREATE cliente.
+    ASSIGN
+        cliente.nome = nome
+        cliente.idade = idade.
+
+    /* Salva no banco de dados */
+    SAVE TRANSACTION.
+
+    MESSAGE "Cliente criado com sucesso!" VIEW-AS ALERT-BOX.
+END.
+1.2 cliente_read.p
+progress
+Copiar código
+/* Arquivo: /src/data/cliente_read.p */
+PROCEDURE readCliente:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE OUTPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE OUTPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    FIND cliente WHERE cliente.id = id NO-ERROR.
+
+    IF AVAILABLE cliente THEN DO:
+        nome = cliente.nome.
+        idade = cliente.idade.
+    END.
+    ELSE DO:
+        MESSAGE "Cliente não encontrado!" VIEW-AS ALERT-BOX.
+    END.
+END.
+1.3 cliente_update.p
+progress
+Copiar código
+/* Arquivo: /src/data/cliente_update.p */
+PROCEDURE updateCliente:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    FIND cliente WHERE cliente.id = id NO-ERROR.
+
+    IF AVAILABLE cliente THEN DO:
+        ASSIGN
+            cliente.nome = nome
+            cliente.idade = idade.
+        SAVE TRANSACTION.
+        MESSAGE "Cliente atualizado com sucesso!" VIEW-AS ALERT-BOX.
+    END.
+    ELSE DO:
+        MESSAGE "Cliente não encontrado!" VIEW-AS ALERT-BOX.
+    END.
+END.
+1.4 cliente_delete.p
+progress
+Copiar código
+/* Arquivo: /src/data/cliente_delete.p */
+PROCEDURE deleteCliente:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+
+    FIND cliente WHERE cliente.id = id NO-ERROR.
+
+    IF AVAILABLE cliente THEN DO:
+        DELETE cliente.
+        SAVE TRANSACTION.
+        MESSAGE "Cliente deletado com sucesso!" VIEW-AS ALERT-BOX.
+    END.
+    ELSE DO:
+        MESSAGE "Cliente não encontrado!" VIEW-AS ALERT-BOX.
+    END.
+END.
+2. Camada de Negócio (BLL)
+Aqui, vamos adicionar uma camada de negócios para gerenciar a validação e regras que podem ser aplicadas ao cliente antes de interagir com a camada de dados.
+
+cliente_negocio.p
+progress
+Copiar código
+/* Arquivo: /src/business/cliente_negocio.p */
+PROCEDURE criarClienteComValidacao:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Validações */
+    IF nome = "" THEN DO:
+        RETURN ERROR "Nome do cliente não pode ser vazio.".
+    END.
+    IF idade < 18 THEN DO:
+        RETURN ERROR "Idade mínima do cliente deve ser 18 anos.".
+    END.
+
+    /* Chama a camada de dados para criar o cliente */
+    RUN createCliente (INPUT nome, INPUT idade).
+END.
+
+PROCEDURE atualizarClienteComValidacao:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Validações */
+    IF nome = "" THEN DO:
+        RETURN ERROR "Nome do cliente não pode ser vazio.".
+    END.
+    IF idade < 18 THEN DO:
+        RETURN ERROR "Idade mínima do cliente deve ser 18 anos.".
+    END.
+
+    /* Chama a camada de dados para atualizar o cliente */
+    RUN updateCliente (INPUT id, INPUT nome, INPUT idade).
+END.
+3. Camada de API (Exposição da Lógica)
+Aqui você cria uma API que expõe as operações CRUD para outras partes do sistema ou para interfaces externas.
+
+cliente_api.p
+progress
+Copiar código
+/* Arquivo: /src/api/cliente_api.p */
+
+/* API para Criar Cliente */
+PROCEDURE createClienteAPI:
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Chama a lógica de negócios para validar e criar o cliente */
+    RUN criarClienteComValidacao (INPUT nome, INPUT idade).
+END.
+
+/* API para Ler Cliente */
+PROCEDURE readClienteAPI:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE OUTPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE OUTPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Chama a camada de dados para ler o cliente */
+    RUN readCliente (INPUT id, OUTPUT nome, OUTPUT idade).
+END.
+
+/* API para Atualizar Cliente */
+PROCEDURE updateClienteAPI:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+    DEFINE INPUT PARAMETER nome AS CHARACTER NO-UNDO.
+    DEFINE INPUT PARAMETER idade AS INTEGER NO-UNDO.
+
+    /* Chama a lógica de negócios para validar e atualizar o cliente */
+    RUN atualizarClienteComValidacao (INPUT id, INPUT nome, INPUT idade).
+END.
+
+/* API para Deletar Cliente */
+PROCEDURE deleteClienteAPI:
+    DEFINE INPUT PARAMETER id AS INTEGER NO-UNDO.
+
+    /* Chama a camada de dados para deletar o cliente */
+    RUN deleteCliente (INPUT id).
+END.
+Resumo
+Camada de Dados (DAL): Implementa diretamente as operações de Create, Read, Update e Delete no banco de dados.
+Camada de Negócio (BLL): Contém validações e regras de negócio antes de realizar operações no banco de dados.
+Camada de API: Exposição das operações CRUD para serem consumidas por outras partes da aplicação ou por sistemas externos.
+Essa estrutura promove modularidade, clareza e reusabilidade do código, facilitando tanto a manutenção quanto a expansão do sistema ao longo do tempo.
