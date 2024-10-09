@@ -1,0 +1,109 @@
+A conversão de tipo em Progress 4GL refere-se ao processo de transformar um valor de um tipo de dado para outro. Em Progress 4GL, isso pode ser feito de maneira explícita ou implícita, dependendo do contexto da aplicação. A linguagem oferece suporte a vários tipos de dados, como inteiros, strings, datas, decimais, etc., e pode ser necessário converter entre eles.
+
+
+
+Conversão Implícita
+
+O Progress 4GL faz algumas conversões automaticamente quando o contexto o exige, por exemplo, ao atribuir um valor de um tipo a uma variável de outro tipo. No entanto, nem todas as conversões são permitidas implicitamente.
+
+Exemplo:
+DEFINE VARIABLE i AS INTEGER NO-UNDO.
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+
+s = "123".
+i = s.  /* Progress converte a string "123" em um número automaticamente */
+
+Nesse caso, o Progress 4GL converte automaticamente o valor da string "123" para o número inteiro 123.
+
+
+
+
+Conversão Explícita
+
+Quando a conversão implícita não é possível ou desejada, a conversão explícita é realizada com funções especiais.
+
+Aqui estão algumas funções comuns de conversão:
+
+STRING(): Converte um valor numérico ou de outro tipo em uma string.
+
+DEFINE VARIABLE i AS INTEGER NO-UNDO.
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+
+i = 123.
+s = STRING(i).  /* Converte o inteiro para string */
+
+
+
+
+
+INTEGER(): Converte um valor de string para um número inteiro, se possível.
+
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+DEFINE VARIABLE i AS INTEGER NO-UNDO.
+
+s = "456".
+i = INTEGER(s).  /* Converte a string "456" para o número inteiro 456 */
+
+
+
+
+
+DECIMAL(): Converte uma string ou inteiro em um valor decimal.
+
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+DEFINE VARIABLE d AS DECIMAL NO-UNDO.
+
+s = "123.45".
+d = DECIMAL(s).  /* Converte a string para decimal */
+
+
+
+
+
+
+DATE(): Converte uma string no formato apropriado para um valor de data.
+
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+DEFINE VARIABLE d AS DATE NO-UNDO.
+
+s = "10/09/2024".
+d = DATE(s).  /* Converte a string para uma data */
+
+
+
+
+LOGICAL(): Converte uma string ou número em um valor booleano (lógico).
+
+
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+DEFINE VARIABLE l AS LOGICAL NO-UNDO.
+
+s = "YES".  /* Assume valores como YES, NO, TRUE, FALSE */
+l = LOGICAL(s).  /* Converte a string para TRUE */
+
+
+
+Tratamento de Erros
+Se uma conversão falhar, como tentar converter uma string não numérica em um número, o Progress 4GL pode gerar erros. É importante garantir que os dados sejam válidos antes de realizar a conversão, ou usar rotinas de tratamento de erros.
+
+Exemplo Completo:
+
+DEFINE VARIABLE i AS INTEGER NO-UNDO.
+DEFINE VARIABLE s AS CHARACTER NO-UNDO.
+DEFINE VARIABLE d AS DECIMAL NO-UNDO.
+
+s = "123".
+i = INTEGER(s).  /* Converte para inteiro */
+d = DECIMAL(s).  /* Converte para decimal */
+s = STRING(i + 10).  /* Converte o resultado de i + 10 para string */
+DISPLAY i d s.
+
+Esse código realiza várias conversões entre tipos diferentes e exibe os resultados.
+
+Em resumo, a conversão de tipos em Progress 4GL é uma parte essencial do desenvolvimento, permitindo que você manipule diferentes tipos de dados de forma flexível e eficiente.
+
+
+
+
+
+
