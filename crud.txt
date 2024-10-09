@@ -596,3 +596,5 @@ END PROCEDURE.
 Publicar o Web Service:
 Utilize o OpenEdge AppServer para publicar o Web Service e configure as propriedades necessárias no arquivo de configuração do AppServer.
 Garanta que seu OpenEdge está configurado para escutar requisições REST.
+
+https://docs.progress.com/pt-BR/bundle/openedge-data-objects-guide/page/CRUD-examples.html
