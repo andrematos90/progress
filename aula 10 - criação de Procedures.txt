@@ -1,0 +1,151 @@
+LINKS ÚTEIS:
+
+https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424920170673.html
+https://riptutorial.com/progress-4gl/topic/8914/procedures
+https://documentation.progress.com/output/ua/OpenEdge_latest/pdsoe/PLUGINS_ROOT/com.openedge.pdt.langref.help/rfi1424920323961.html
+
+Uma procedure (ou procedimento) é um bloco de código que realiza uma tarefa específica e pode ser chamado para execução em diferentes partes de um programa. Procedures são amplamente usadas para modularizar o código, promovendo reutilização e melhor organização.
+
+O QUE SÃO PROCEDURES?
+Uma procedure é um conjunto de instruções agrupadas em um bloco nomeado. Elas podem aceitar parâmetros de entrada, realizar operações com esses valores, e, opcionalmente, retornar resultados. Procedures em Progress 4GL podem ser armazenadas em arquivos externos (com extensão .p) ou definidas no corpo principal de um programa.
+
+PARA QUE SERVEM?
+As procedures têm várias finalidades, incluindo:
+
+Modularização do Código: Permite dividir o código em partes menores e mais fáceis de gerenciar.
+Reutilização: Procedimentos podem ser reutilizados em diferentes partes do programa ou em programas diferentes.
+Facilidade de Manutenção: Torna o código mais fácil de entender e manter, uma vez que a lógica é isolada em procedimentos separados.
+Encapsulamento: Ajuda a encapsular funcionalidades, permitindo que a lógica de negócios seja separada do fluxo principal do programa.
+Melhora a Legibilidade: Ao usar procedimentos bem definidos, o código fica mais legível e organizado.
+
+
+COMO CRIAR PROCEDURES?
+Procedures em Progress 4GL são criadas com o bloco de código PROCEDURE ... END.. Aqui está a estrutura básica de uma procedure:
+
+PROCEDURE nome-da-procedure:
+    /* Bloco de código da procedure */
+END.
+
+
+
+Exemplo Simples:
+
+PROCEDURE saudacao:
+    DISPLAY "Olá, bem-vindo ao sistema!".
+END.
+
+RUN saudacao.
+
+Nesse exemplo, a procedure saudacao exibe uma mensagem de boas-vindas, e é chamada com o comando RUN saudacao..
+
+
+
+
+
+PROCEDURE COM PARÂMETROS
+
+Procedures podem receber parâmetros de entrada, que permitem que valores sejam passados para serem processados dentro do procedimento. Você pode definir parâmetros de entrada, saída e entrada/saída.
+
+INPUT: Valor passado para a procedure, mas não é modificado.
+OUTPUT: A procedure retorna um valor que é atribuído à variável de chamada.
+INPUT-OUTPUT: Valor que é passado para a procedure e pode ser modificado.
+
+Exemplo com Parâmetro de Entrada:
+
+PROCEDURE saudacaoComNome:
+    DEFINE INPUT PARAMETER nome AS CHARACTER.
+    DISPLAY "Olá, " nome "! Bem-vindo ao sistema!".
+END.
+
+RUN saudacaoComNome("André").
+
+Aqui, a procedure saudacaoComNome recebe um nome como parâmetro de entrada e o utiliza para exibir uma saudação personalizada.
+
+
+
+
+Exemplo com Parâmetros de Saída:
+
+PROCEDURE calcularQuadrado:
+    DEFINE INPUT PARAMETER numero AS INTEGER.
+    DEFINE OUTPUT PARAMETER resultado AS INTEGER.
+    
+    resultado = numero * numero.
+END.
+
+DEFINE VARIABLE resultadoQuadrado AS INTEGER NO-UNDO.
+
+RUN calcularQuadrado(5, OUTPUT resultadoQuadrado).
+
+DISPLAY resultadoQuadrado.
+
+Nesse caso, a procedure calcularQuadrado recebe um número como entrada, calcula seu quadrado e devolve o resultado por meio de um parâmetro de saída.
+
+
+
+Procedure com Retorno de Valor
+Além de passar valores por parâmetros, uma procedure também pode retornar valores, especialmente quando definida como uma user-defined function (função definida pelo usuário). Contudo, a estrutura mais comum em Progress 4GL é o uso de parâmetros de saída para retornar múltiplos valores.
+
+Exemplo com Parâmetro de Entrada e Saída:
+
+PROCEDURE calcularSoma:
+    DEFINE INPUT PARAMETER a AS INTEGER.
+    DEFINE INPUT PARAMETER b AS INTEGER.
+    DEFINE OUTPUT PARAMETER soma AS INTEGER.
+    
+    soma = a + b.
+END.
+
+DEFINE VARIABLE resultadoSoma AS INTEGER NO-UNDO.
+
+RUN calcularSoma(10, 20, OUTPUT resultadoSoma).
+
+DISPLAY "A soma é: " resultadoSoma.
+
+
+
+
+
+CHAMANDO PROCEDURES
+
+Procedures são chamadas utilizando o comando RUN, seguido pelo nome da procedure:
+
+RUN nome-da-procedure.
+
+
+Caso a procedure esteja em um arquivo externo, você pode usar a sintaxe abaixo:
+
+RUN "caminho/para/o/arquivo.p".
+
+
+
+Se a procedure aceitar parâmetros, eles são passados diretamente após o nome, como no exemplo a seguir:
+
+RUN nome-da-procedure (param1, param2, OUTPUT param3).
+
+
+Procedures Persistentes
+Procedures também podem ser persistentes, o que significa que elas permanecem na memória após a primeira execução e podem ser chamadas várias vezes sem necessidade de serem recarregadas. Para criar uma procedure persistente, usa-se a opção PERSISTENT:
+
+RUN nome-da-procedure PERSISTENT SET handle-procedure.
+
+Exemplo Completo:
+
+PROCEDURE calcularMedia:
+    DEFINE INPUT PARAMETER a AS INTEGER.
+    DEFINE INPUT PARAMETER b AS INTEGER.
+    DEFINE OUTPUT PARAMETER media AS DECIMAL.
+    
+    media = (a + b) / 2.
+END.
+
+DEFINE VARIABLE mediaCalculada AS DECIMAL NO-UNDO.
+
+RUN calcularMedia(10, 20, OUTPUT mediaCalculada).
+
+DISPLAY "A média é: " mediaCalculada.
+
+Esse código demonstra a criação de uma procedure que calcula a média de dois números e exibe o resultado.
+
+Conclusão
+Procedures em Progress 4GL são uma ferramenta poderosa para estruturar programas de forma modular, permitindo melhor organização, reutilização e manutenção do código. Elas podem ser simples, com blocos de código fixos, ou complexas, envolvendo parâmetros de entrada, saída e procedimentos persistentes, que facilitam o desenvolvimento de aplicações mais robustas e escaláveis.
