@@ -1,0 +1,20 @@
+
+                Fri Oct 11 11:05:05 2024
+[2024/10/11@11:05:05.841-0300] P-3280       T-2708  I DBUTIL   : (451)   prostrct create session begin for andre on CON:. 
+[2024/10/11@11:05:05.842-0300] P-3280       T-2708  I DBUTIL   : (12862) Structure file C:\Users\andre\Desenvolvimento\repositorios\progress\database\praticaDb.st used to create database with blocksize 8192. 
+[2024/10/11@11:05:05.845-0300] P-3280       T-2708  I DBUTIL   : (334)   prostrct create session end. 
+[2024/10/11@11:05:05.859-0300] P-3280       T-2708  I DBUTIL   : (451)   procopy session begin for andre on CON:. 
+[2024/10/11@11:05:06.375-0300] P-3280       T-2708  I DBUTIL   : (334)   procopy session end. 
+
+                Fri Oct 11 11:05:06 2024
+[2024/10/11@11:05:06.394-0300] P-3280       T-2708  I DBUTIL   : (451)   procopy get default SQL DBA session begin for andre on CON:. 
+[2024/10/11@11:05:06.395-0300] P-3280       T-2708  I DBUTIL   : (15321) Before Image Log Initialization at block 0  offset 0. 
+[2024/10/11@11:05:06.504-0300] P-3280       T-2708  I DBUTIL   : (14867) Procopy -newinstance Created a new database GUID. 
+[2024/10/11@11:05:06.555-0300] P-3280       T-2708  I DBUTIL   : (15109) At Database close the number of live transactions is 0. 
+[2024/10/11@11:05:06.555-0300] P-3280       T-2708  I DBUTIL   : (15743) Before Image Log Completion at Block 0 Offset 2667. 
+[2024/10/11@11:05:06.557-0300] P-3280       T-2708  I DBUTIL   : (334)   procopy get default SQL DBA session end. 
+
+                Fri Oct 11 11:05:10 2024
+[2024/10/11@11:05:10.474-0300] P-2380       T-6504  I ABL      : (451)   Single-user session begin for andre on CON:. 
+[2024/10/11@11:05:10.475-0300] P-2380       T-6504  I ABL      : (15321) Before Image Log Initialization at block 0  offset 2667. 
+[2024/10/11@11:05:10.492-0300] P-2380       T-6504  I ABL      : (7129)  Usr 0 set name to andre. 

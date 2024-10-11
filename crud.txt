@@ -1,3 +1,223 @@
+PASSOS CRIAÇÃO DE CRUD
+
+Para criar um CRUD em Progress 4GL (também chamado de OpenEdge ABL) que pode ser consumido por um projeto Angular, você precisará desenvolver um backend em Progress que expõe APIs RESTful para operações de CRUD (Create, Read, Update, Delete). Essas APIs poderão ser consumidas pelo frontend Angular. Abaixo estão os passos gerais para realizar isso:
+
+1. Configurar o ambiente OpenEdge para serviços REST
+Você precisará configurar um servidor de aplicações Progress que suporte REST. Isso pode ser feito por meio do Progress OpenEdge WebSpeed ou usando o OpenEdge Application Server (PAS) for OpenEdge.
+
+PAS for OpenEdge é preferível, pois tem suporte nativo para REST.
+Defina um serviço REST que irá expor os endpoints.
+
+2. Criar o CRUD em Progress 4GL (ABL)
+Aqui está um exemplo de código Progress 4GL para criar operações básicas de CRUD para uma tabela chamada Customer.
+
+a. Create (POST)
+progress
+Copiar código
+DEFINE INPUT PARAMETER pCustomerName AS CHARACTER NO-UNDO.
+DEFINE INPUT PARAMETER pCustomerEmail AS CHARACTER NO-UNDO.
+DEFINE OUTPUT PARAMETER pStatus AS CHARACTER NO-UNDO.
+
+CREATE Customer.
+ASSIGN Customer.CustomerName = pCustomerName
+       Customer.CustomerEmail = pCustomerEmail.
+
+IF AVAILABLE Customer THEN
+    pStatus = "Success".
+ELSE
+    pStatus = "Failure".
+b. Read (GET)
+progress
+Copiar código
+DEFINE INPUT PARAMETER pCustomerID AS INTEGER NO-UNDO.
+DEFINE OUTPUT PARAMETER pCustomerName AS CHARACTER NO-UNDO.
+DEFINE OUTPUT PARAMETER pCustomerEmail AS CHARACTER NO-UNDO.
+DEFINE OUTPUT PARAMETER pStatus AS CHARACTER NO-UNDO.
+
+FIND Customer WHERE Customer.CustomerID = pCustomerID NO-LOCK NO-ERROR.
+
+IF AVAILABLE Customer THEN DO:
+    pCustomerName = Customer.CustomerName.
+    pCustomerEmail = Customer.CustomerEmail.
+    pStatus = "Success".
+END.
+ELSE DO:
+    pStatus = "Customer not found".
+END.
+c. Update (PUT)
+progress
+Copiar código
+DEFINE INPUT PARAMETER pCustomerID AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER pCustomerName AS CHARACTER NO-UNDO.
+DEFINE INPUT PARAMETER pCustomerEmail AS CHARACTER NO-UNDO.
+DEFINE OUTPUT PARAMETER pStatus AS CHARACTER NO-UNDO.
+
+FIND Customer WHERE Customer.CustomerID = pCustomerID EXCLUSIVE-LOCK NO-ERROR.
+
+IF AVAILABLE Customer THEN DO:
+    ASSIGN Customer.CustomerName = pCustomerName
+           Customer.CustomerEmail = pCustomerEmail.
+    pStatus = "Success".
+END.
+ELSE DO:
+    pStatus = "Customer not found".
+END.
+d. Delete (DELETE)
+progress
+Copiar código
+DEFINE INPUT PARAMETER pCustomerID AS INTEGER NO-UNDO.
+DEFINE OUTPUT PARAMETER pStatus AS CHARACTER NO-UNDO.
+
+FIND Customer WHERE Customer.CustomerID = pCustomerID EXCLUSIVE-LOCK NO-ERROR.
+
+IF AVAILABLE Customer THEN DO:
+    DELETE Customer.
+    pStatus = "Success".
+END.
+ELSE DO:
+    pStatus = "Customer not found".
+END.
+3. Criar serviços REST no Progress
+Utilize o OpenEdge Developer Studio para criar um novo serviço REST.
+Crie métodos para os endpoints HTTP (GET, POST, PUT, DELETE) e associe-os ao código ABL acima.
+Configure o mapeamento de URIs (por exemplo, /customer/{id}) e defina o tipo de dados de entrada/saída como JSON.
+4. Testar os endpoints REST
+Use ferramentas como Postman ou cURL para testar os endpoints REST que você criou e verificar se as operações de CRUD estão funcionando corretamente.
+
+5. Consumir os serviços REST no Angular
+Agora que o backend está pronto, você pode criar um serviço no Angular para consumir essas APIs. Aqui está um exemplo básico de como criar o serviço em Angular para consumir os endpoints.
+
+a. Criar um serviço Angular
+typescript
+Copiar código
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CustomerService {
+
+  private apiUrl = 'http://localhost:8080/rest/customer';
+
+  constructor(private http: HttpClient) { }
+
+  // Get customer by ID
+  getCustomer(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  // Create new customer
+  createCustomer(customer: any): Observable<any> {
+    return this.http.post(this.apiUrl, customer);
+  }
+
+  // Update customer
+  updateCustomer(id: number, customer: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, customer);
+  }
+
+  // Delete customer
+  deleteCustomer(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+}
+b. Component Angular para CRUD
+Crie componentes Angular que utilizem o serviço para interagir com a interface e chamar as APIs REST.
+
+Conclusão
+Com o Progress 4GL (ABL) você cria o backend de CRUD exposto como APIs REST, que o Angular pode consumir facilmente. O fluxo geral envolve:
+
+Criar lógica de CRUD em Progress.
+Expor essa lógica como serviços REST.
+Consumir os serviços REST no Angular através de HTTP requests.
+
+
+
+Configurar o OpenEdge Application Server (PAS) for OpenEdge é uma etapa essencial para expor serviços REST que o frontend (por exemplo, um projeto Angular) pode consumir. O PAS for OpenEdge é a plataforma de middleware da Progress que permite rodar aplicações ABL e também disponibilizá-las como serviços REST, SOAP ou outros protocolos de comunicação.
+
+Objetivo da configuração
+O objetivo de configurar o PAS for OpenEdge é criar um ambiente no qual suas aplicações Progress 4GL possam ser acessadas via HTTP, permitindo que o frontend (Angular ou qualquer outro) realize operações CRUD através de APIs REST.
+
+Etapas detalhadas de configuração do PAS for OpenEdge
+1. Instalar o PAS for OpenEdge
+Se ainda não tiver o PAS for OpenEdge instalado, siga esses passos:
+
+Baixe o instalador do PAS for OpenEdge da Progress.
+Durante a instalação, selecione a opção de instalar o PAS for OpenEdge (Progress Application Server).
+Após a instalação, verifique se o PAS está funcionando. Normalmente, ele estará disponível em http://localhost:8810 (porta padrão) ou na porta configurada durante a instalação.
+2. Criar uma nova instância do PAS
+Depois de instalar o PAS, o próximo passo é criar uma nova instância de servidor que possa ser usada para hospedar seus serviços REST.
+
+Comando para criar uma nova instância:
+Abra o Proenv (Prompt de comando Progress) e execute o seguinte comando:
+
+bash
+Copiar código
+tcman create myPasInstance
+Esse comando criará uma nova instância chamada myPasInstance. Após a criação, inicie a instância:
+
+bash
+Copiar código
+tcman start myPasInstance
+Isso fará com que o servidor esteja disponível em http://localhost:<porta>/myPasInstance.
+
+3. Configurar o OpenEdge Web Server para Suporte a REST
+O PAS for OpenEdge precisa ser configurado para suportar serviços REST. Isso é feito através do OpenEdge Management ou diretamente nos arquivos de configuração.
+
+a. Configurar via OpenEdge Explorer
+Abra o OpenEdge Management/Explorer (geralmente acessível em http://localhost:9090/).
+No menu à esquerda, localize sua instância do PAS criada (myPasInstance).
+Vá até a aba Web Applications e clique em Add para adicionar um novo módulo Web.
+Selecione o tipo REST como o tipo de aplicação web.
+Mapeie seu aplicativo REST para um nome de contexto que será usado nas URLs (exemplo: /rest).
+b. Configurar via Arquivo de Configuração
+Você também pode configurar diretamente no arquivo OpenEdge.properties, que é encontrado no diretório da instância myPasInstance.
+
+Localize a seção de configurações REST e ajuste conforme necessário.
+Certifique-se de que as propriedades de REST estão ativadas e apontando para o correto ABL Service/Program.
+4. Criar um Serviço REST no OpenEdge Developer Studio
+Agora que o PAS for OpenEdge está configurado, você pode usar o OpenEdge Developer Studio para criar os serviços REST.
+
+Passos para criar um serviço REST:
+Criar um Projeto OpenEdge: No OpenEdge Developer Studio, crie um novo projeto ABL.
+Criar Classes e Procedimentos ABL: Escreva o código ABL (Progress 4GL) que implementa a lógica de CRUD, como descrito anteriormente (Create, Read, Update, Delete).
+Adicionar um Serviço REST:
+Clique com o botão direito no projeto e vá em New > REST Service.
+Escolha a opção de gerar um serviço REST baseado em um procedimento ABL ou uma classe ABL.
+Defina as rotas URI (por exemplo, /customer/{id} para acessar um cliente).
+Configurar o Mapeamento de Dados:
+No REST Manager, você pode mapear os parâmetros de entrada e saída (tipicamente em formato JSON) para os parâmetros ABL.
+Implantar o Serviço:
+Após definir o serviço REST, você pode implantá-lo na instância do PAS for OpenEdge (ex: myPasInstance).
+5. Testar o Serviço REST
+Use ferramentas como Postman ou cURL para testar as operações CRUD expostas por suas APIs REST. Por exemplo, você pode fazer uma requisição GET para http://localhost:8810/myPasInstance/rest/customer/1 para recuperar um cliente com ID 1.
+
+Exemplo de requisição cURL:
+
+bash
+Copiar código
+curl -X GET http://localhost:8810/myPasInstance/rest/customer/1
+6. Configurar o Cross-Origin Resource Sharing (CORS)
+Se você estiver consumindo essas APIs a partir de um frontend Angular hospedado em um domínio diferente, precisará garantir que o CORS (Cross-Origin Resource Sharing) esteja ativado no PAS for OpenEdge.
+
+No OpenEdge Explorer, vá até a configuração de Web Application.
+Ative o CORS e defina as regras para permitir que seu frontend Angular faça requisições às APIs REST.
+7. Desenvolvimento Adicional e Manutenção
+Agora que seu PAS for OpenEdge está configurado e expõe serviços REST, você pode continuar desenvolvendo novas funcionalidades no backend em Progress 4GL, e essas mudanças estarão imediatamente disponíveis para o frontend Angular consumir via as APIs REST que você configurou.
+
+Conclusão
+Configurar o PAS for OpenEdge é um passo necessário para criar APIs REST que serão consumidas por projetos Angular ou outras interfaces. Esse servidor de aplicações possibilita a execução de código ABL de forma acessível via HTTP, e sua configuração garante que operações de CRUD possam ser acessadas e utilizadas por diferentes interfaces e plataformas.
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 Para criar um backend em Progress 4GL (OpenEdge ABL), é importante seguir boas práticas de modularização e organização do código. Assim como em outras linguagens, você pode optar por diferentes abordagens para estruturar as operações CRUD (Create, Read, Update, Delete). A estruturação ideal depende do tamanho e da complexidade do projeto, mas há algumas convenções e práticas recomendadas que podem ser seguidas.
 
 Opções de Estruturação de CRUD em Progress 4GL
